@@ -12,6 +12,8 @@ class BookListCreateAPIView(APIView):
         books=Book.objects.all()
         serializer=BookSerializer(books,many=True)
         return Response(serializer.data)
+
+
     def post(slef,request):
         serializer=BookSerializer(data=request.data)
         if serializer.is_valid():
@@ -24,6 +26,8 @@ class BookDetailAPIView(APIView):
         book=get_object_or_404(Book,pk=pk)
         serializer=BookSerializer(book)
         return Response(serializer.data)
+
+
     def put(self,request,pk):
         book=get_object_or_404(Book,pk=pk)
         serializer=BookSerializer(book,data=request.data)
@@ -31,6 +35,8 @@ class BookDetailAPIView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+        
     def delete(self,request,pk):
         book=get_object_or_404(Book,pk=pk)
         book.delete()
